@@ -68,19 +68,11 @@ public class Banco {
                 // Todas as operações são realizadas na conta logada
                 switch (opcao) {
                     case 1: // Depósito
-                        System.out.print("Informe o valor para deposito: R$");
-                        // Lê como String e converte para double
-                        String valorDepositoStr = scanner.nextLine();
-                        // Sem tratamento de exceção - NumberFormatException ocorrerá
-                        double valorDeposito = Double.parseDouble(valorDepositoStr);
+                        double valorDeposito = capturaValorReal("Informe o valor do deposito: ");
                         contaLogada.depositar(valorDeposito);
                         break;
                     case 2: // Saque
-                        System.out.print("Informe o valor para saque: R$");
-                        // Lê como String e converte para double
-                         String valorSaqueStr = scanner.nextLine();
-                        // Sem tratamento de exceção - NumberFormatException ocorrerá
-                         double valorSaque = Double.parseDouble(valorSaqueStr);
+                        double valorSaque = capturaValorReal("Informe o valor do saque: ");
                         contaLogada.sacar(valorSaque);
                         break;
                     case 3: // Extrato
@@ -118,6 +110,22 @@ public class Banco {
             valor = Integer.parseInt(numeroContaStr);
         }catch(NumberFormatException e){
             System.out.println("O valor deve ser um numero inteiro!. Tente novamente.");
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return valor;
+    }
+    
+    private double capturaValorReal(String mensagem){
+        System.out.println(mensagem);
+        double valor = 0;
+        String numeroReal = scanner.nextLine();
+        try{
+            valor = Double.parseDouble(numeroReal);
+        }catch(NumberFormatException e){
+            System.out.println("O valor deve ser um numero real positivo!. Tente novamente.");
+        }catch(Exception e){
+            System.out.println(e);
         }
         return valor;
     }
